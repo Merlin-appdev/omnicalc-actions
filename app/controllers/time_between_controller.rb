@@ -12,12 +12,14 @@ class TimeBetweenController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer"
-    @minutes = "Replace this string with your answer"
-    @hours = "Replace this string with your answer"
-    @days = "Replace this string with your answer"
-    @weeks = "Replace this string with your answer"
-    @years = "Replace this string with your answer"
+    delta_time = (@ending - @starting)
+
+    @seconds = delta_time
+    @minutes = (delta_time/1.minute)
+    @hours = (delta_time/1.hour)
+    @days = (delta_time/1.day)
+    @weeks = (delta_time/1.week)
+    @years = (delta_time/1.year)
 
     # ================================================================================
     # Your code goes above.
