@@ -7,36 +7,92 @@ class StatsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer"
+    @sorted_numbers = @numbers.sort
 
-    @count = "Replace this string with your answer"
+    @count = @numbers.count
 
-    @minimum = "Replace this string with your answer"
+    @minimum = @numbers.min
 
-    @maximum = "Replace this string with your answer"
+    @maximum = @numbers.max
 
-    @range = "Replace this string with your answer"
+    @range = @maximum - @minimum
 
     # Median
     # ======
 
-    @median = "Replace this string with your answer"
+     def median(array)                          #Define your method accepting an array as an argument. 
+     array = array.sort                         #sort the array from least to greatest
+     if array.length.odd?                       #is the length of the array odd?
+        return array[(array.length - 1) / 2]    #find value at this index
+     else array.length.even?                    #is the length of the array even?
+        return ( array[array.length/2] + array[array.length/2 - 1] )/2.to_f
+                                                #average the values found at these two indexes and convert to float
+      end
+    end
+    
+    @median = median(@numbers)
 
-    @sum = "Replace this string with your answer"
+    # Sum
+    # ======
 
-    @mean = "Replace this string with your answer"
+   total_sum = 0
+   @numbers.each do |num|
+   total_sum = total_sum + num
+   end
+
+    @sum = total_sum
+    
+    # Mean
+    # ======
+    
+    mean_total = total_sum/@numbers.length
+    @mean = mean_total
 
     # Variance
     # ========
+    
+  diff_sqr = 0
+  @numbers.each do |num|
+    diff_sqr = diff_sqr + (num - mean_total)**2
+  end
+  
+  var_numbers = diff_sqr / @numbers.length
+    
+    @variance = var_numbers
+    
+    stdv_numbers = var_numbers**0.5
 
-    @variance = "Replace this string with your answer"
-
-    @standard_deviation = "Replace this string with your answer"
+    @standard_deviation = stdv_numbers
 
     # Mode
     # ====
+    
+def mode(array)
 
-    @mode = "Replace this string with your answer"
+    count = []  # Number of times element is repeated in array
+    output = []
+    array.compact!
+    unique = array.uniq
+    
+    j=0
+    unique.each do |i|
+        count[j] = array.count(i)
+        j+=1
+    end
+    
+    k=0
+    count.each do |i|
+        output[k] = unique[k] if i == count.max
+        k+=1
+    end  
+
+    return output.compact.inspect
+
+end
+    
+    mode_numbers = mode(@numbers)
+    
+    @mode = mode_numbers
 
     # ================================================================================
     # Your code goes above.
